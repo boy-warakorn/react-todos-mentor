@@ -1,0 +1,5 @@
+InputBox example:
+
+```js
+<InputBox />
+```

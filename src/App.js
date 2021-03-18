@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Card } from "./components/Card/Card";
+import { InputBox } from "./components/InputBox/InputBox";
+import { TodosBox } from "./components/Todos/TodosBox/TodosBox";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState([
+    {
+      id: "12345",
+      text: "Test",
+    },
+  ]);
+
+  const onAdd = (text) => {
+    setTodos([...todos, { id: Math.random(), text: text }]);
+  };
+
+  const onDelete = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="header-text">My Todos!</h1>
+      <Card>
+        <InputBox onAdd={onAdd} />
+        <TodosBox todos={todos} onDelete={onDelete} />
+      </Card>
     </div>
   );
-}
+};
 
 export default App;
